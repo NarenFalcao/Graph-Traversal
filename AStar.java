@@ -157,9 +157,7 @@ public class AStar {
 				cellDetails[i][j] = new Cell(Float.MAX_VALUE,Float.MAX_VALUE,Float.MAX_VALUE,-1,-1);
 			}
 		}
-		
 		//Initialising the parameter of the starting node
-		
 		int i = source.i;
 		int j = source.j;
 		cellDetails[i][j].f_value = 0.0;
@@ -171,19 +169,15 @@ public class AStar {
 		//An open list, act as stack to insert the nodes that trace the path
 		Set<pPair> openList = new LinkedHashSet<pPair>();
 		openList.add(new pPair(0.0,i,j));
-		
-		
 		while(!openList.isEmpty()){
 			pPair node = openList.iterator().next();
 			openList.remove(node);
-			
 			//get the i and j and make this cell, a visited one
 			i = node.i;
 			j = node.j;
 			closedList[i][j] = true;
 			double gNew=0.0,hNew=0.0,fNew=0.0;
 			//8 successors check
-			//north
 			if(!foundDestination) 	successorTrace(1.0,i,j,openList,i-1,j,grid,destination,cellDetails,closedList,gNew,hNew,fNew);//North
 			if(!foundDestination)	successorTrace(1.0,i,j,openList,i+1,j,grid,destination,cellDetails,closedList,gNew,hNew,fNew);//south
 			if(!foundDestination)	successorTrace(1.0,i,j,openList,i,j+1,grid,destination,cellDetails,closedList,gNew,hNew,fNew);//east
@@ -193,17 +187,7 @@ public class AStar {
 			if(!foundDestination)	successorTrace(1.414,i,j,openList,i+1,j+1,grid,destination,cellDetails,closedList,gNew,hNew,fNew);//south-east
 			if(!foundDestination)	successorTrace(1.414,i,j,openList,i+1,j-1,grid,destination,cellDetails,closedList,gNew,hNew,fNew);//south-west
 			if(foundDestination)	break;
-			
-			
-			
-			
-			
-			
-			
 		}
-		
-		
-		
 		if(!foundDestination){
 			System.out.println("Failed to find the destination");
 		}
@@ -226,6 +210,5 @@ public class AStar {
 	    pair source = new pair(8,0);
 	    pair destination = new pair(0,0);
 	    object.aStarSearch(grid,source,destination);
-	    
 	}
 }
