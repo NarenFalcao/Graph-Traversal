@@ -33,8 +33,40 @@ class pair{
 		}
 }
 
-public class AStar {
+public class AStar extends Thread {
 	public static boolean foundDestination = false;
+	private Thread t;
+	private String Name;
+	private int [][] grid;
+	private pair source;
+	private pair destination;
+	
+	AStar(String name, int[][]gridMatrix, pair src,pair dest){
+		this.grid = gridMatrix;
+		this.Name = name;
+		this.source = src;
+		this.destination = dest;
+		System.out.println("Enemy "+Name+ " created");
+	}
+	
+	public void start(){
+		System.out.println(this.Name +" has woken up");
+		if(t==null){
+			t = new Thread(this, Name);
+			t.start();
+		}
+	}
+	
+	public void run(){
+		System.out.println("Enemy "+this.Name+" approaching towards you");
+		try{
+			 aStarSearch(grid,source,destination);
+		}catch(Exception e){
+			System.out.println(Name +"crashed");
+		}
+		System.out.println(Name +" Killed you");
+	}
+	
 	public boolean isValid(pair obj,int grid[][]){
 		int i_value = obj.i,j_value = obj.j;
 		int row = grid.length,col = grid[0].length;
@@ -86,7 +118,7 @@ public class AStar {
 		//print the stack trace
 		while(!tracePath.isEmpty()){
 			pair p = tracePath.pop();
-			System.out.println("->("+p.i+" "+p.j+")");
+			System.out.println(Name +"->("+p.i+" "+p.j+")");
 		}
 		
 	}
@@ -103,7 +135,7 @@ public class AStar {
 				//set the parent of this cell to be the prev one
 				cellDetails[i][j].parent_i = original_i;
 				cellDetails[i][j].parent_j = original_j;
-				System.out.println("Destination is found");
+				System.out.println("Player's location found");
 				//cellDetailsPrint(cellDetails);
 				tracePath(cellDetails, destination);
 				foundDestination = true;
@@ -111,6 +143,8 @@ public class AStar {
 			}
 			//check if the successor is already chosen in some other path
 			else if(!closedList[i][j] && isUnblocked(grid,i,j)){
+			//	System.out.println(i+" "+j);
+				
 				gNew = cellDetails[original_i][original_j].g_value + addDistance; //default cell movement distance is 1.0
 				hNew = euclideanDistance(i,j,destination);
 				fNew = gNew+hNew;
@@ -193,7 +227,7 @@ public class AStar {
 		}
 	}
 	public static void main(String [] args){
-		AStar object = new AStar();
+		
 		//0 - stands for blocked path
 		//1 - stands for free path
 		int grid[][] = new int[][]{
@@ -203,12 +237,22 @@ public class AStar {
 	        { 0, 0, 1, 0, 1, 0, 0, 0, 0, 1 },
 	        { 1, 1, 1, 0, 1, 1, 1, 0, 1, 0 },
 	        { 1, 0, 1, 1, 1, 1, 0, 1, 0, 0 },
-	        { 1, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
+	        { 1, 0, 0, 0, 0, 1, 0, 1, 0, 1 },
 	        { 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
 	        { 1, 1, 1, 0, 0, 0, 1, 0, 0, 1 }
 	    };
 	    pair source = new pair(8,0);
 	    pair destination = new pair(0,0);
-	    object.aStarSearch(grid,source,destination);
+	    
+	    AStar Nemesis = new AStar("Nemesis",grid,source,destination);
+	    Nemesis.start();
+	    
+	    source = new pair(0,9);
+	    destination = new pair(0,0);
+	    	
+	    AStar Abomination = new AStar("Abomination",grid,source,destination);
+	    Abomination.start();
+	    
+	   
 	}
 }
