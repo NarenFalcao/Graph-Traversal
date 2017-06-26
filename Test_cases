@@ -1,0 +1,48 @@
+Case 1:
+
+int grid[][] = new int[][]{
+			{1,1,1,1,0},
+			{1,1,1,1,1},
+			{1,1,0,1,1},
+			{1,0,1,0,1},
+			{1,1,1,1,1}
+		};
+pair source = new pair(0,0);
+pair destination = new pair(3,2);
+	  
+Case 2:
+		
+int grid[][] = new int[][]{
+			{1,1,1,1,0},
+			{1,1,1,1,1},
+			{1,1,0,1,1},
+			{1,0,1,0,1},
+			{1,1,1,1,1}
+		};
+pair source = new pair(0,0);
+pair destination = new pair(4,4);
+	    
+Case 3:	
+int grid[][] = new int[][]{
+			{1,1,1,1,1,1,1},
+			{1,1,1,1,1,1,1},
+			{1,1,1,0,1,1,1},
+			{1,1,1,1,1,1,1},
+			{1,0,1,0,1,1,1},
+			{1,1,1,0,1,1,1},
+			{1,1,1,1,1,1,1}
+		};
+pair source = new pair(2,1);
+pair destination = new pair(5,4);
+
+Case 4:
+
+int grid[][] = new int[][]{
+			{1,1,1,1,1},
+			{1,1,1,1,1},
+			{1,1,1,1,1},
+			{1,1,1,0,0},
+			{1,1,1,0,1}
+		};
+pair source = new pair(0,0);
+pair destination = new pair(4,4);
